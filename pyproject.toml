@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=77.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fridgelin"
+description = "Turns whatever is left in your fridge into a pretentious tasting menu, with reviews and drink pairings."
+version = "0.1.0"
+authors = [
+  { name="Kevin Han" },
+  { name="Tony Dong" },
+  { name="Spark Fan" },
+  { name="Yutong Xiao" },
+]
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
+readme = "README.md"
+keywords = ["fridge", "menu", "leftovers", "fun", "restaurant"]
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+"Homepage" = "https://github.com/software-students-fall2026/python-package-exercise-milkfrog"
+"Repository" = "https://github.com/software-students-fall2026/python-package-exercise-milkfrog.git"
+"Bug Tracker" = "https://github.com/software-students-fall2026/python-package-exercise-milkfrog/issues"
+
+[project.scripts]
+fridgelin = "fridgelin.__main__:main"

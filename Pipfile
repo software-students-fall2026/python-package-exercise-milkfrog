@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fridgelin = {file = ".", editable = true}
+
+[dev-packages]
+build = "*"
+pytest = "*"
+coverage = "*"
+pytest-cov = "*"
+twine = "*"
+
+[requires]
+python_version = "3"
