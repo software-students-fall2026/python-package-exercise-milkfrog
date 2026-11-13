@@ -14,5 +14,15 @@ def price(food, level=3):
     return final_price
 
 
+def line(dish, cost, width):
+    tag = "$%.2f" % cost
+    dot_count = width - len(dish) - len(tag) - 2
+
+    # A long dish name stays intact, even if there is no room for dots.
+    dots = "." * dot_count
+    row = dish + " " + dots + " " + tag
+    return row
+
+
 def menu(food,level=3,courses=3,width=72, seed=None):
     raise NotImplementedError("not yet")

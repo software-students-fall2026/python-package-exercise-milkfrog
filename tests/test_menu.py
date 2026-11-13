@@ -1,6 +1,7 @@
 import pytest
 
 from fridgelin import price
+from fridgelin.menus import line
 
 
 EIGHT = ["rice", "ketchup", "egg", "lime", "hot sauce", "butter", "cheese", "bread"]
@@ -32,3 +33,20 @@ def test_price_bad():
         price(["rice"], 6)
     with pytest.raises(ValueError):
         price([], 3)
+
+
+def test_line():
+    row = line("Rice", 8.49, 40)
+    assert len(row) == 40
+    assert row.endswith(" $8.49")
+    assert row.startswith("Rice ....")
+
+    total_row = line("Total", 2618.44, 120)
+    assert len(total_row) == 120
+    assert total_row.endswith(" $2618.44")
+
+    long_name = "A" * 50
+    row = line(long_name, 1.0, 40)
+    assert row.startswith(long_name)
+    assert row.endswith(" $1.00")
+    assert row == long_name + "  $1.00"
