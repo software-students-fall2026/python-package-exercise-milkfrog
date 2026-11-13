@@ -150,6 +150,29 @@ def test_widths():
     assert rows[-1].endswith("$2618.44")
 
 
+def test_menu_bad():
+    with pytest.raises(ValueError):
+        menu([], 3)
+    with pytest.raises(ValueError):
+        menu(["rice"], 9)
+    with pytest.raises(TypeError):
+        menu(["rice"], "3")
+
+    with pytest.raises(ValueError):
+        menu(["rice"], 3, 0)
+    with pytest.raises(ValueError):
+        menu(["rice"], 3, 7)
+    with pytest.raises(TypeError):
+        menu(["rice"], 3, True)
+
+    with pytest.raises(ValueError):
+        menu(["rice"], 3, 3, 39)
+    with pytest.raises(ValueError):
+        menu(["rice"], 3, 3, 121)
+    with pytest.raises(TypeError):
+        menu(["rice"], 3, 3, 72, "7")
+
+
 def test_one_course_uses_all_food():
     food = ["rice", "egg", "lime"]
     rows = menu(food, level=2, courses=1, width=120, seed=4).splitlines()
@@ -161,3 +184,10 @@ def test_one_course_uses_all_food():
     assert cost(rows[1]) == expected_price
     assert rows[2].startswith("Total ")
     assert cost(rows[2]) == expected_price
+
+
+def test_boolean_seed():
+    with pytest.raises(TypeError):
+        menu(["rice"], seed=True)
+    with pytest.raises(TypeError):
+        menu(["rice"], seed=False)
