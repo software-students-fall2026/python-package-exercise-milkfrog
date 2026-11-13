@@ -10,6 +10,7 @@ SOLO={
         "Just {head}",
         "{head}, Plain",
         "A Bowl of {head}",
+
         "Some {head}",
         "{head}, Nothing Else",
         "Leftover {head}"
@@ -18,8 +19,8 @@ SOLO={
 
     2:
     (
-        "Honest {head}",
-        "{head}, Lightly Considered",
+        "Classic {head}",
+        "Mom's {head}",
         "Home-Style {head}",
         "Rustic {head}",
         "{head}, Made with Care"
@@ -35,26 +36,23 @@ SOLO={
         "Braised {head}, Pan Juices"
     ),
 
-
-
     4: 
     (
-        "Charred {head}, Finished Tableside",
-        "{head}, Pressed and Rested",
-        "Slow-Cooked {head} with Its Own Essence",
-        "A Plate of {head}, Carefully Arranged",
-        "{head} with Smoked Air"
+        "Barely Cooked {head}, Brown Butter",
+        "{head} Cuit Sous Vide, Pomme Fondante",
+        "Crudo of {head}, Olive Oil and Sea Salt",
+
+        "Salt-Baked {head}, Black Truffle",
+        "Dry-Aged {head}, Sauce Bordelaise"
     ),
-
-
     5: 
     (
         "{head}, Three Ways, All of Them Cold",
-        "A Meditation on {head}",
+        "Hot {head}, Cold {head}",
         "{head}, Reimagined",
-        "The Essence of {head}",
+        "{head} in Textures",
         "An Ode to {head}",
-        "{head}, Interrupted"
+        "Variations of {head}"
     )
 
 }
@@ -62,8 +60,6 @@ SOLO={
 
 
 MULTI={
-
-
     1: 
     (
         "{head} with {rest}",
@@ -76,22 +72,18 @@ MULTI={
         "Some {head} and Some {rest}",
         "{head} with a Side of {rest}"
     ),
-
-
     2: 
     (
         "Rustic {head} with {rest}",
         "Grandma's {head} with {rest}",
         "{head} Glazed with {rest}",
-        "Honest {head} with {rest}",
+        "Homemade {head} with {rest}",
         "{head} Tossed with {rest}",
         "Weeknight {head} with {rest}",
         "{head} Skillet with {rest}",
         "{head} with {rest}, Family Style",
         "Simple {head} over {rest}"
     ),
-
-
     3: 
     (
         "Pan-Seared {head}, {rest} Reduction",
@@ -104,34 +96,33 @@ MULTI={
         "{head} with {rest} Glaze",
         "Smoked {head}, {rest} Drizzle"
     ),
-
-
-
     4: 
     (
-        "Charred {head} over a Silken {rest} Emulsion, Finished Tableside",
-        "Sous-Vide {head} with a Velvet {rest} Foam",
-        "{head}, Pressed, with {rest} Soil",
-        "{head} with {rest} Gel and Torched Edges",
-        "Roasted {head}, {rest} Dust, Micro Herbs",
-        "{head} Rested on Warm {rest}, Finished with Smoke",
-        "Aged {head} Under a Veil of {rest}",
-        "Hand-Cut {head} over {rest} Puree, Plated Warm",
-        "Slow {head}, Quick {rest}"
+        "Barely Cooked {head}, {rest} Beurre Blanc",
+        "Butter-Poached {head} with {rest} Sabayon",
+        "Tartare of {head} with {rest}, Toasted Brioche",
+        "Salad of {head} with {rest} Vinaigrette", 
+
+        "{head} Cuit Sous Vide, Pomme Fondante, {rest} Jus",
+        "Dry-Aged {head}, {rest}, Sauce Bordelaise",
+        "Coal-Roasted {head}, {rest}, Black Truffle",
+        
+        "Glazed {head} with {rest} Gastrique",
+        "{head} Ragout with {rest} Foam"
     ),
 
 
     5: 
     (
         "Deconstructed {rest}, Three Ways, on a Bed of {head}",
-        "A Study of {head} and {rest}",
-        "{head}, Reimagined, with a Whisper of {rest}",
-        "Textures of {head}, Memory of {rest}",
-        "{head} in Conversation with {rest}",
+        "{head} in Textures, {rest} Snow",
+        "Hot {head}, Cold {rest}",
+        "Variations of {head}, {rest} Consomme",
+        "{head} Almost Raw, {rest} Barely Touched",
         "An Ode to {head}, Interrupted by {rest}",
-        "The Idea of {head}, Served with {rest} Air",
-        "{head}, Forgotten and Found, over {rest} Snow",
-        "A Quiet Argument Between {head} and {rest}"
+        "{head} Under a Cloche of {rest} Smoke",
+        "Garden of {head} with {rest} Soil",
+        "{head} and Pearls, {rest} Sabayon"
     )
 
 }
@@ -149,19 +140,20 @@ def glue(rest):
 
 
 
-def name(food, level=3, seed=None):
+def name(food,level=3,seed=None):
 
     food=clean(food)
     whole("Level",level,1,5)
 
-    r =rng(seed)
+    r=rng(seed)
     
     head=food[0]
 
     if len(food)==1:
+
         pick=r.choice(SOLO[level])
+
         return pick.format(head=head)
 
     pick=r.choice(MULTI[level])
-
     return pick.format(head=head, rest=glue(food[1:]))
