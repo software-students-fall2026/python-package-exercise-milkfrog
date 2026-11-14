@@ -3,26 +3,37 @@ import pytest
 from fridgelin import review
 
 
-def test_bad_stars():
-    with pytest.raises(ValueError):
-        review("Rice", 0)
-    with pytest.raises(ValueError):
-        review("Rice", 6)
-    with pytest.raises(TypeError):
-        review("Rice", True)
-    with pytest.raises(TypeError):
-        review("Rice", "1")
+@pytest.mark.parametrize("stars", [0, 6])
+def test_stars_outside_range(stars):
+    with pytest.raises(ValueError, match="Stars"):
+        review("Rice", stars)
 
 
-def test_bad_text():
-    with pytest.raises(ValueError):
-        review("", 3)
-    with pytest.raises(TypeError):
-        review(123, 3)
-    with pytest.raises(ValueError):
-        review("Rice", 3, "  ")
+@pytest.mark.parametrize("stars", [True, False, 1.0, "1", None])
+def test_stars_must_be_integer(stars):
+    with pytest.raises(TypeError, match="Stars"):
+        review("Rice", stars)
 
 
-def test_bad_seed():
-    with pytest.raises(TypeError):
-        review("Rice", 3, seed="7")
+@pytest.mark.parametrize("field", ["dish", "critic"])
+@pytest.mark.parametrize("value", ["", "  "])
+def test_empty_text(field, value):
+    arguments = {"dish": "Rice", "stars": 3, "critic": "Ada Spoon"}
+    arguments[field] = value
+    with pytest.raises(ValueError, match=field.capitalize()):
+        review(**arguments)
+
+
+@pytest.mark.parametrize("field", ["dish", "critic"])
+@pytest.mark.parametrize("value", [123, None])
+def test_text_must_be_string(field, value):
+    arguments = {"dish": "Rice", "stars": 3, "critic": "Ada Spoon"}
+    arguments[field] = value
+    with pytest.raises(TypeError, match=field.capitalize()):
+        review(**arguments)
+
+
+@pytest.mark.parametrize("seed", ["7", True, False, 1.5])
+def test_invalid_seed_type(seed):
+    with pytest.raises(TypeError, match="Seed"):
+        review("Rice", 3, seed=seed)
