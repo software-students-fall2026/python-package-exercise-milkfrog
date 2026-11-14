@@ -193,6 +193,8 @@ python3 -m pip install pipenv
 pipenv install --dev
 ```
 
+On Windows, use `py -m pip install pipenv`.
+
 Run the tests:
 
 ```bash
