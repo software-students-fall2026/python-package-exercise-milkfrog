@@ -1,4 +1,4 @@
-from fridgelin import name, price, menu, review, drink
+from fridgelin import name, price, menu, review, drink, swap
 
 
 food=["rice", "ketchup", "egg"]
@@ -33,5 +33,11 @@ print()
 print(drink(dish, "student", seed=7))
 print(drink(dish, "date", seed=7))
 print(drink(dish, "investor", seed=7))
+
+print()
+
+fancy=swap(food, seed=7)
+print("Fancy ingredients:", ", ".join(fancy))
+print(name(fancy, 5, seed=7))
 
 
